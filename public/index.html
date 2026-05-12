@@ -2255,6 +2255,7 @@ socket.on('level_complete', ({ level, nextLevel, leaderboard }) => {
     btnStop.style.width = '100%';
     btnStop.textContent = '⏹ Stop & Lihat Hasil';
     btnStop.onclick = () => {
+      console.log('stop_game emitted', myRoom);
       socket.emit('stop_game', { code: myRoom });
     };
     btns.appendChild(btnStop);
@@ -2281,7 +2282,8 @@ socket.on('level_started', ({ level }) => {
 socket.on('game_ended', ({ winner, leaderboard, host }) => {
   stopGame();
 
-  document.getElementById('winner-name').textContent = winner ? winner.name : '—';
+  const winnerEl = document.getElementById('winner-name');
+  if (winnerEl) winnerEl.textContent = winner ? winner.name : '—';
 
   // Tampilkan host di atas kotak leaderboard
   let hostBadge = document.getElementById('end-host-badge');
@@ -2293,7 +2295,7 @@ socket.on('game_ended', ({ winner, leaderboard, host }) => {
       font-size:14px; font-weight:700; color:var(--text-muted); letter-spacing:0.05em;
     `;
     const finalLeaderboard = document.querySelector('.final-leaderboard');
-    finalLeaderboard.insertBefore(hostBadge, finalLeaderboard.firstChild);
+    if (finalLeaderboard) finalLeaderboard.insertBefore(hostBadge, finalLeaderboard.firstChild);
   }
   hostBadge.innerHTML = host
     ? `${escapeHtml(host.name)}${host.id === myId ? ' (You)' : ''} &nbsp;—&nbsp; Host`
