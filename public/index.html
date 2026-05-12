@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=1280, initial-scale=0.25, minimum-scale=0.1, maximum-scale=5.0, user-scalable=yes">
 <title>Quibble — Math Bubble Battle</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -1653,8 +1653,8 @@ function animateBubbles() {
   const a = arena();
   if (!a) { animFrame = requestAnimationFrame(animateBubbles); return; }
 
-  const aH = a.clientHeight || (window.innerHeight - 110);
-  const aW = a.clientWidth  || (window.innerWidth  - 220);
+  const aH = a.getBoundingClientRect().height || (window.innerHeight - 110);
+  const aW = a.getBoundingClientRect().width  || (window.innerWidth  - 220);
   const dangerLineY = aH * 0.20;
   let newlySettled = 0;
 
